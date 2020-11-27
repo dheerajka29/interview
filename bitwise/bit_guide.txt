@@ -1,0 +1,11 @@
+#define ROTATE_LEFT(pos, data) ((data << pos)|(data >> (INT_BITS - pos)))
+#define ROTATE_RIGHT(pos, data) ((data >> pos)|(data << (INT_BITS - pos)))
+#define SET_BIT(value, pos) value |= (1U<< pos)
+#define CLEAR_BIT(value, pos) value &= ~(1U<< pos)
+#define TOGGLE_BIT(value, pos) value ^= (1U<< pos)
+#define CHECK_BIT_IS_SET_OR_NOT(value, pos) value & (1U<< pos)
+#define SWAP_NIBBLES(data) ((data & 0x0F)<<4 | (data & 0xF0)>>4)
+#define SWAP_BYTES(u32Value) ((u32Value & 0x000000FF) << 24)\
+|((u32Value & 0x0000FF00) << 8) \
+|((u32Value & 0x00FF0000) >> 8) \
+|((u32Value & 0xFF000000) >> 24)
