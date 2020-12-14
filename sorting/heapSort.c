@@ -1,69 +1,67 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-void mySwap(int* a, int* b)
-{
-	*a = *a ^ *b;
-	*b = *a ^ *b;
-	*a = *a ^ *b;
-}
-
-void printArr(int* arr, int len)
+void printArray(int* arr, int len)
 {
 	int i = 0;
-
-	for(i; i<len; i++)
+	printf("\n");
+	for(; i<len; i++)
 	{
 		printf("%d ",arr[i]);
 	}
 	printf("\n");
 }
 
-void heapify(int* arr, int n, int i)
+void swap(int* a, int* b)
+{
+	if(*a != *b)
+	{
+		*a = *a + *b;
+		*b = *a - *b;
+		*a = *a - *b;
+	}
+}
+void heapify(int* arr, int i, int len)
 {
 	int l = 2*i + 1;
 	int r = 2*i + 2;
 	int largest = i;
 
-	if(l < n && arr[l]>arr[largest])
+	if(l<len && arr[l] > arr[largest])
 		largest = l;
-	if(r<n && arr[r]>arr[largest])
+	
+	if(r<len && arr[r] > arr[largest])
 		largest = r;
 	
-	if(largest != i)
+	if( largest != i)
 	{
-		mySwap(&arr[largest], &arr[i]);
-		heapify(arr, n, largest);
+		swap(&arr[i], &arr[largest]);
+		heapify(arr, largest, len);
 	}
+	printArray(arr, 6);
 }
-
-
-
 void heapSort(int* arr, int len)
 {
-	int n = len;
-	int i = (n/2) - 1;
-	for(i; i >=0; i--)
+	int i = len/2 -1;
+	for(;i>=0; i--)
 	{
-		heapify(arr, n, i);
+		heapify(arr, i, len);
 	}
-	
-	for(i = n-1; i>0; i--)
+	for(i = len-1; i>=0; i--)
 	{
-		mySwap(&arr[0], &arr[i]);
-		heapify(arr, i, 0);
+		swap(&arr[0], &arr[i]);
+		heapify(arr, 0, i);
 	}
 }
 
 void main()
 {
-	int arr[] = {9, 6, 1, 8, 2, 3, 5, 4, 7};
+	int arr[6] = {3, 5, 6, 1, 9, 0};
 
-	int length = sizeof(arr)/sizeof(arr[0]);
+	printArray(arr, 6);
 
-	printArr(arr, length);
+	heapSort(arr, 6);
+//	quickSort(arr, 0, 6);
 
-	heapSort(arr, length);
-
-	printArr(arr, length);
+	printArray(arr, 6);
 }
